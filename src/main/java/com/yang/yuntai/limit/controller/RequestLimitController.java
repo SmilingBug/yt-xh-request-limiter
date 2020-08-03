@@ -2,8 +2,10 @@ package com.yang.yuntai.limit.controller;
 
 
 import com.yang.yuntai.limit.annotation.RequestLimiter;
+import com.yang.yuntai.limit.annotation.RequestLimiter2;
 import com.yang.yuntai.limit.exception.RequestLimitException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -16,12 +18,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @create: 2019-06-19 21:14
  **/
 @RestController
-public class LeaenRoleController {
+public class RequestLimitController {
 
     private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 
-    @RequestLimiter(key = "test", period = 30, count = 15, name="resource", prefix = "limit")
-    @GetMapping("/test")
+    @RequestLimiter2(perSecond = 600)
+    @PostMapping("/test")
     public Integer testLimiter() {
         Integer res = null;
         try {
